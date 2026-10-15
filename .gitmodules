@@ -6,4 +6,4 @@
 	url = https://github.com/abner/quickjs-c-bridge.git
 [submodule "vendor/check_mk_api-flutter"]
 	path = vendor/checkmk_api
-	url = https://github.com/jochumdev/check_mk_api-flutter.git
+	url = https://github.com/stylersnico/check_mk_api-flutter.git
