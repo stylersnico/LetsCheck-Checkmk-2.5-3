@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:checkmk_api/checkmk_api.dart' as cmk_api;
 import 'package:letscheck/providers/connection_data/connection_data_state.dart';
 import 'package:letscheck/providers/providers.dart';
+import 'package:letscheck/cmk_colors.dart';
 
 class ServicesGroupedCardWidget extends ConsumerWidget {
   final String alias;
@@ -75,33 +76,33 @@ class ServicesGroupedCardWidget extends ConsumerWidget {
 
       Widget stateIcon = IconButton(
         onPressed: gotoService,
-        icon: Icon(Icons.check, color: Colors.green, size: 20),
+        icon: Icon(Icons.check, color: CmkColors.ok, size: 20),
       );
       switch (service.state) {
         case cmk_api.svcStateOk:
           stateIcon = IconButton(
             onPressed: gotoService,
-            icon: Icon(Icons.check, color: Colors.green, size: 20),
+            icon: Icon(Icons.check, color: CmkColors.ok, size: 20),
           );
           break;
         case cmk_api.svcStateWarn:
           stateIcon = IconButton(
             onPressed: gotoService,
             icon: FaIcon(FontAwesomeIcons.triangleExclamation,
-                color: Colors.yellow, size: 20),
+                color: CmkColors.warn, size: 20),
           );
           break;
         case cmk_api.svcStateCritical:
           stateIcon = IconButton(
             onPressed: gotoService,
-            icon: FaIcon(FontAwesomeIcons.ban, color: Colors.red, size: 20),
+            icon: FaIcon(FontAwesomeIcons.ban, color: CmkColors.crit, size: 20),
           );
           break;
         case cmk_api.svcStateUnknown:
           stateIcon = IconButton(
             onPressed: gotoService,
             icon: FaIcon(FontAwesomeIcons.circleQuestion,
-                color: Colors.grey, size: 20),
+                color: CmkColors.unknown, size: 20),
           );
           break;
       }
@@ -173,13 +174,24 @@ class ServicesGroupedCardWidget extends ConsumerWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SelectableText(
-                              service.displayName!.substring(
-                                  0,
-                                  service.displayName!.length > 35
-                                      ? 35
-                                      : service.displayName!.length),
-                              style: Theme.of(context).textTheme.bodyMedium),
+                          Flexible(
+                            child: InkWell(
+                              onTap: gotoService,
+                              child: Text(
+                                  service.displayName!.substring(
+                                      0,
+                                      service.displayName!.length > 35
+                                          ? 35
+                                          : service.displayName!.length),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: CmkColors.textMuted)),
+                            ),
+                          ),
                           Text(
                             jsRuntime.evaluate(
                                 "DateTime.fromISO('${service.lastStateChange.toString().replaceFirst(" ", "T")}').toRelative({style: 'short'});"),

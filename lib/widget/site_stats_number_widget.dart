@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:letscheck/cmk_colors.dart';
 
 class SiteStatsNumberWidget extends StatelessWidget {
   final String caption;
@@ -12,30 +13,43 @@ class SiteStatsNumberWidget extends StatelessWidget {
       required this.num,
       required this.valueColor,
       required this.onTap,
-      this.zeroColor = Colors.white});
+      this.zeroColor = CmkColors.surfaceHigh});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    final active = num > 0;
+    // The "all" counter uses the accent colour as text, not as a fill.
+    final isTotal = valueColor == CmkColors.accent;
+    final fill = active && !isTotal ? valueColor : zeroColor;
+    final textColor = isTotal
+        ? CmkColors.text
+        : (active ? Colors.black : CmkColors.textMuted);
+
+    return InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(4),
         child: Column(
           children: [
-            Text(caption, style: Theme.of(context).textTheme.labelMedium),
-            SizedBox(height: 1),
+            Text(caption,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelSmall
+                    ?.copyWith(color: CmkColors.textMuted)),
+            SizedBox(height: 3),
             Container(
+                width: 60,
+                height: 26,
                 decoration: BoxDecoration(
-                  color: num > 0 ? valueColor : zeroColor,
-                  borderRadius: BorderRadius.circular(2),
-                  border: Border.all(color: Colors.black),
+                  color: fill,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: CmkColors.border),
                 ),
-                child: Container(
-                    width: 50,
-                    height: 20,
-                    color: Colors.transparent,
-                    child: Center(
-                        child: Text(num.toString(),
-                            style: TextStyle(
-                                color: Colors.black, fontSize: 12))))),
+                child: Center(
+                    child: Text(num.toString(),
+                        style: TextStyle(
+                            color: textColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold)))),
           ],
         ));
   }

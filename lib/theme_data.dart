@@ -2,6 +2,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'cmk_colors.dart';
+
 /// The [AppTheme] defines light and dark themes for the app.
 ///
 /// Theme setup for FlexColorScheme package v8.
@@ -39,9 +41,19 @@ sealed class AppTheme {
   );
   // The defined dark theme.
   static ThemeData dark = FlexThemeData.dark(
-    scheme: FlexScheme.greenM3,
-    appBarOpacity: 0.50,
-    surfaceTint: const Color(0xFF13D389),
+    colors: const FlexSchemeColor(
+      primary: CmkColors.accent,
+      primaryContainer: CmkColors.surfaceHigh,
+      secondary: CmkColors.accent,
+      secondaryContainer: CmkColors.surfaceHigh,
+      tertiary: CmkColors.pending,
+      tertiaryContainer: CmkColors.surfaceHigh,
+      error: CmkColors.crit,
+    ),
+    scaffoldBackground: CmkColors.background,
+    surface: CmkColors.surface,
+    appBarBackground: CmkColors.surface,
+    surfaceTint: Colors.transparent,
     subThemesData: const FlexSubThemesData(
       interactionEffects: true,
       tintedDisabledControls: true,
@@ -52,6 +64,8 @@ sealed class AppTheme {
       inputDecoratorBorderType: FlexInputBorderType.outline,
       alignedDropdown: true,
       appBarCenterTitle: false,
+      defaultRadius: 4.0,
+      cardRadius: 4.0,
       searchBarBackgroundSchemeColor: SchemeColor.onPrimary,
       searchViewBackgroundSchemeColor: SchemeColor.onPrimary,
       navigationRailUseIndicator: true,

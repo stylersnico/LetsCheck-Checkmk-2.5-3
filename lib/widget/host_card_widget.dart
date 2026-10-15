@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:checkmk_api/checkmk_api.dart' as cmk_api;
+import 'package:letscheck/cmk_colors.dart';
 
 class HostCardWidget extends StatelessWidget {
   final String alias;
@@ -13,20 +14,20 @@ class HostCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget icon = Icon(Icons.check, color: Colors.green);
+    Widget icon = Icon(Icons.check, color: CmkColors.ok);
     switch (host.state) {
       case cmk_api.hostStateUp:
-        icon = Icon(Icons.check, color: Colors.green);
+        icon = Icon(Icons.check, color: CmkColors.ok);
         break;
       case cmk_api.hostStateUnreachable:
         icon =
-            FaIcon(FontAwesomeIcons.triangleExclamation, color: Colors.yellow);
+            FaIcon(FontAwesomeIcons.triangleExclamation, color: CmkColors.warn);
         break;
       case cmk_api.hostStateDown:
-        icon = FaIcon(FontAwesomeIcons.ban, color: Colors.red);
+        icon = FaIcon(FontAwesomeIcons.ban, color: CmkColors.crit);
         break;
       case cmk_api.hostStatePending:
-        icon = FaIcon(FontAwesomeIcons.circleQuestion, color: Colors.grey);
+        icon = FaIcon(FontAwesomeIcons.circleQuestion, color: CmkColors.unknown);
         break;
     }
 
