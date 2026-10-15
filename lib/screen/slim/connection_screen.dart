@@ -5,6 +5,7 @@ import 'package:letscheck/providers/connection_data/connection_data_state.dart';
 import 'package:letscheck/screen/slim/slim_layout.dart';
 import 'package:letscheck/widget/site_stats_widget.dart';
 import 'package:letscheck/widget/services_list_widget.dart';
+import 'package:letscheck/widget/recent_events_widget.dart';
 import 'package:letscheck/providers/providers.dart';
 
 class ConnectionScreen extends ConsumerStatefulWidget {
@@ -38,6 +39,10 @@ class ConnectionScreenState extends ConsumerState<ConnectionScreen> {
                   child: ServicesListWidget(
                 alias: widget.alias,
                 services: unhServices.toList(),
+                footer: ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 260),
+                  child: RecentEventsWidget(alias: widget.alias),
+                ),
               )),
             ],
           ),

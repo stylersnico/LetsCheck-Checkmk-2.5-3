@@ -34,6 +34,7 @@ class SettingsConnectionScreenState
       showMenu: false,
       showSettings: false,
       showSearch: false,
+      showFab: false,
     );
   }
 

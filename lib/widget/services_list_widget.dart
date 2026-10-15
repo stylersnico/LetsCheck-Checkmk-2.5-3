@@ -7,11 +7,13 @@ class ServicesListWidget extends StatefulWidget {
   final String alias;
   final List<cmk_api.Service> services;
   final Key? listKey;
+  final Widget? footer;
 
   const ServicesListWidget({
     required this.alias,
     required this.services,
     this.listKey,
+    this.footer,
     super.key,
   });
 
@@ -51,6 +53,7 @@ class _ServicesListWidgetState extends State<ServicesListWidget>
             groupName: hostname,
             services: groupedServices[hostname]!,
           ),
+        if (widget.footer != null) widget.footer!,
       ],
     );
   }

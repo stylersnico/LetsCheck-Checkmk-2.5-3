@@ -25,6 +25,7 @@ class SettingsScreenState extends ConsumerState<SettingsScreen> {
       showMenu: false,
       showSettings: false,
       showSearch: false,
+      showFab: false,
     );
   }
 

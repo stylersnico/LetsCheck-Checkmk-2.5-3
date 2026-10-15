@@ -22,13 +22,15 @@ class SlimLayoutSettings {
   final bool showLeading;
   final bool showSearch;
   final bool showLogs;
+  final bool showFab;
 
   SlimLayoutSettings(this.title,
       {this.showSettings = true,
       this.showMenu = true,
       this.showLeading = true,
       this.showSearch = true,
-      this.showLogs = true}) {
+      this.showLogs = true,
+      this.showFab = true}) {
     showRefresh = kIsWeb || Platform.isAndroid || Platform.isIOS;
   }
 }
@@ -112,7 +114,7 @@ class SlimLayout extends ConsumerWidget {
       key: _scaffoldKey,
       drawer: drawer,
       floatingActionButtonLocation: ExpandableFab.location,
-      floatingActionButton: ExpandableFab(
+      floatingActionButton: !layoutSettings.showFab ? null : ExpandableFab(
         openButtonBuilder: RotateFloatingActionButtonBuilder(
           child: const Icon(Icons.add),
         ),
