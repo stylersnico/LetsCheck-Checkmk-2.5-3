@@ -168,6 +168,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  fl_chart:
+    dependency: "direct main"
+    description:
+      name: fl_chart
+      sha256: "5276944c6ffc975ae796569a826c38a62d2abcf264e26b88fa6f482e107f4237"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.70.2"
   flex_color_scheme:
     dependency: "direct main"
     description:
@@ -233,43 +241,42 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_js
-      sha256: d19cde4bad2f7c301ff5f69d7b3452ff91f2ca89d153569dd03e544579d8610d
+      sha256: "046428059ac7bef71e305dc35fc24be933b684684a43e83eab7ebd0dc407ad85"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.1"
+    version: "0.8.7"
   flutter_local_notifications:
     dependency: "direct main"
     description:
-      path: flutter_local_notifications
-      ref: HEAD
-      resolved-ref: ed1ad7861f4a6e88bec4b134b9614c79d00199d7
-      url: "https://github.com/MaikuB/flutter_local_notifications.git"
-    source: git
-    version: "19.0.0-dev.6"
+      name: flutter_local_notifications
+      sha256: "19ffb0a8bb7407875555e5e98d7343a633bb73707bae6c6a5f37c90014077875"
+      url: "https://pub.dev"
+    source: hosted
+    version: "19.5.0"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
       name: flutter_local_notifications_linux
-      sha256: "2f1ba596b52411cbcc27e91aa539ab3486d345693643d5456dfb0d2dac2c5e2c"
+      sha256: e3c277b2daab8e36ac5a6820536668d07e83851aeeb79c446e525a70710770a5
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.0-dev.1"
+    version: "6.0.0"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
       name: flutter_local_notifications_platform_interface
-      sha256: "4d3acbc6f56a1e1ed2d1835f9448103452274fe362d7b0a826bdbf15c0abfc6f"
+      sha256: "277d25d960c15674ce78ca97f57d0bae2ee401c844b6ac80fcd972a9c99d09fe"
       url: "https://pub.dev"
     source: hosted
-    version: "9.0.0-dev.1"
+    version: "9.1.0"
   flutter_local_notifications_windows:
     dependency: transitive
     description:
       name: flutter_local_notifications_windows
-      sha256: "3fcc00dc3be6a41184b8a244fbfbfdb0f6765f22b6fc6837fbf375864c1cb5a2"
+      sha256: "8d658f0d367c48bd420e7cf2d26655e2d1130147bca1eea917e576ca76668aaf"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0-dev.4"
+    version: "1.0.3"
   flutter_localizations:
     dependency: transitive
     description: flutter
