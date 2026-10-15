@@ -50,10 +50,6 @@ Get it from [GitHub Releases](https://github.com/stylersnico/LetsCheck-Checkmk-2
 - **macOS:** not signed or notarized. Right-click the app and choose "Open", or run `xattr -cr /Applications/letscheck.app`.
 - **Windows:** x64 only.
 
-## Demo
-
-![image](docs/videos/letscheck_v0.0.1-rc1.webp)
-
 ## FAQ
 
 The “Frequently asked questions” page of the original app is available on the [GitHub wiki](https://github.com/jochumdev/letscheck/wiki/FAQ).
