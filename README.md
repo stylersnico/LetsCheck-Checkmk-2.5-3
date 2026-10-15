@@ -44,9 +44,9 @@ The dark theme uses the Checkmk "modern dark" palette: Checkmk background and su
 
 ## Screenshots
 
-| Overview | Service metrics | Recent events |
-|---|---|---|
-| ![Overview](docs/screenshots/overview.png) | ![Service metrics](docs/screenshots/service-metrics.png) | ![Recent events](docs/screenshots/recent-events.png) |
+| Dashboard | Service metrics |
+|---|---|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Service metrics](docs/screenshots/service-metrics.png) |
 
 ## Download
 
