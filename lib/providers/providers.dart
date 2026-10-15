@@ -67,7 +67,7 @@ final clientProvider = FutureProvider.family<cmk_api.Client, String>((ref, alias
       site: settings.site,
       username: settings.username,
       secret: settings.password,
-      insecure: !settings.insecure,
+      insecure: settings.insecure,
     ),
   );
 

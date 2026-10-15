@@ -364,7 +364,7 @@ class Notifier {
               site: s.site,
               username: s.username,
               secret: s.password,
-              insecure: !s.insecure,
+              insecure: s.insecure,
             ),
             requireConnect: false,
           );

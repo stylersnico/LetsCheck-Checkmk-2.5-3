@@ -138,7 +138,7 @@ class ConnectionFormNotifier extends StateNotifier<ConnectionFormState> {
                       ?.password ??
                   state.password!
               : state.password!,
-          insecure: !state.insecure,
+          insecure: state.insecure,
         ),
       );
 
