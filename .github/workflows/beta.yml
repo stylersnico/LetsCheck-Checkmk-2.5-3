@@ -1,0 +1,161 @@
+name: Beta build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    name: "Build Linux x64"
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - name: Install Flutter dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -qy libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev clang unzip libayatana-appindicator3-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.29.0
+
+      - name: Build quickjs-c-bridge
+        run: pushd quickjs-c-bridge; cmake -S ./linux -B ./build/linux; cmake --build build/linux; popd
+
+      - name: Flutter build app
+        run: flutter build linux --release
+
+      - name: Copy libquickjs
+        run: cp quickjs-c-bridge/build/linux/libquickjs_c_bridge_plugin.so build/linux/x64/release/bundle/lib/
+
+      - name: Compress artifacts
+        run: tar -a -c -f letscheck-linux-x64.tar.xz -C ./build/linux/x64/release/bundle .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-x64-binary
+          path: letscheck-linux-x64.tar.xz
+
+  build-flatpak:
+    needs: build-linux
+    name: "Build Linux flatpak"
+    runs-on: ubuntu-22.04
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
+      options: --privileged
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-x64-binary
+
+      - name: Extract x64 binary
+        run: mkdir -p ./build/linux/x64/release/bundle && tar -x -f letscheck-linux-x64.tar.xz -C ./build/linux/x64/release/bundle
+
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: letscheck.flatpak
+          manifest-path: ./io.github.jochumdev.letscheck.yml
+          cache: false
+          upload-artifact: false
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-flatpak
+          path: letscheck.flatpak
+
+  build-macos:
+    name: "Build macOS"
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.29.0
+
+      - name: Install create-dmg
+        run: brew install create-dmg
+
+      - name: Flutter build app
+        run: flutter build macos --release
+
+      - name: Create dmg
+        run: ./scripts/create_mac_dmg.sh
+
+      - name: Compress artifacts
+        run: cd build/macos/Build/Products/Release && zip -r ../../../../../letscheck-macos.zip letscheck.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos
+          path: |
+            letscheck-macos.zip
+            build/macos/Build/Products/Release/letscheck.dmg
+
+  # Signed with the debug key: no release keystore in this fork.
+  build-android:
+    name: "Build Android APK"
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "21.x"
+          cache: "gradle"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.29.0
+
+      - name: Build
+        run: flutter build apk --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+  build-windows:
+    name: "Build Windows x64"
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.29.0
+
+      - name: Flutter build app
+        run: flutter build windows --release
+
+      - name: Compress artifacts
+        run: Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath letscheck-windows-x64.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64-zip
+          path: letscheck-windows-x64.zip
